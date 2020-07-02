@@ -1,0 +1,38 @@
+class Solution {
+public:
+    double findMedianSortedArrays(vector<int>& nums1, vector<int>& nums2) {
+        int n1=nums1.size();
+        int n2=nums2.size();
+        if(n1>n2) //carry out BS on smaller array nums1 // if nums1 not small interchange the arrays
+            return findMedianSortedArrays(nums2,nums1);
+        int low=0;
+        int high=n1;
+        int partitionx=0,partitiony=0;
+        while(low<=high)
+        {
+            partitionx=(low+high)/2;
+            partitiony=(n1+n2+1)/2 - partitionx; //takes care of odd even cases
+            int xleftmax=(partitionx==0)?INT_MIN:nums1[partitionx-1];
+            int xrightmin=((partitionx==n1)?INT_MAX:nums1[partitionx]);
+            
+            int yleftmax=((partitiony==0)?INT_MIN:nums2[partitiony-1]);
+            int yrightmin=((partitiony==n2)?INT_MAX:nums2[partitiony]);
+            if(xleftmax<=yrightmin&&yleftmax<=xrightmin)
+            {
+                //found the right partition
+                if((n1+n2)%2) //odd resultant array size
+                    return max(yleftmax,xleftmax);
+                else
+                {
+                    return (double)(max(yleftmax,xleftmax)+min(yrightmin,xrightmin))/2;
+                }
+            }
+            else if(xleftmax>yrightmin)
+            high=partitionx-1;
+            else if(xrightmin<yleftmax)
+                low=partitionx+1;
+            
+        }
+        return -1;
+    }
+};
