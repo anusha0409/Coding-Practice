@@ -1,0 +1,26 @@
+class Solution {
+public:
+    int numRabbits(vector<int>& answers) {
+        
+        
+        
+        int n=answers.size(),i,res=0,key,value,groups;
+        unordered_map <int , int> m;
+        unordered_map <int , int>:: iterator it;
+        for(i=0;i<n;i++)
+            m[answers[i]]++;
+        // if(m.find(answers[i])== m.end())
+        //   m.insert({answers[i],1});
+        // else{  auto it=m.find(answers[i]);
+        //    (it->second)++;     }
+        //
+        for(it=m.begin();it!=m.end();it++)
+        {
+            key=it->first;
+            value =it->second;
+            groups=ceil((float)value/(key+1));
+            res+=groups*(key+1);
+        }
+        return res;
+    }
+};
