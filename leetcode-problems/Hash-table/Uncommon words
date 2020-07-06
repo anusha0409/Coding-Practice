@@ -1,0 +1,45 @@
+class Solution {
+public:
+    vector<string> uncommonFromSentences(string A, string B) {
+        vector <string> ans;
+        int i,j;
+        unordered_map < string, int> res;
+        unordered_map < string, int>::iterator it;
+        string w="";
+        A=A+" ";
+        B=B+ " ";
+        for(i=0;i<A.length();i++)
+        {
+            char ch=A[i];
+            if(ch!=' ')
+                w=w+ch;
+            else
+            {  
+                 res[w]++;
+                
+                w="";
+            }
+        }
+        w="";
+        for(i=0;i<B.length();i++)
+        {
+            char ch=B[i];
+            if(ch!=' ')
+                w=w+ch;
+            else
+            {
+             
+                 res[w]++;
+                w="";
+            }
+        }
+        for(it=res.begin();it!=res.end();it++)
+        {
+            string key= it->first;
+            int freq=it->second;
+            if(freq==1)
+                ans.push_back(key);
+        }
+        return ans;
+    }
+};
