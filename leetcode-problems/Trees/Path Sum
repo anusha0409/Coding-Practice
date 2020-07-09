@@ -1,0 +1,26 @@
+class Solution {
+public:
+    int flag=0;
+void  path(TreeNode* root, int sumRequired, int sum)
+    {
+        if(root->left==NULL&&root->right==NULL)
+        {     
+            if(sum==sumRequired)
+                flag=1;
+        }
+      if(root->left!=NULL)
+          path(root->left,sumRequired,sum+root->left->val);
+      if(root->right!=NULL)
+          path(root->right,sumRequired,sum+root->right->val);
+      
+    }
+    bool hasPathSum(TreeNode* root, int sum) {
+        if(root==NULL)
+            return false;
+      path(root,sum,root->val);
+        if(flag)
+            return true;
+        else
+            return false;
+    }
+};
