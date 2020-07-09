@@ -1,0 +1,29 @@
+class Solution {
+public:
+    int height(TreeNode* root)
+    {
+      if(root==NULL) return 0;
+    int l=height(root->left);
+        int r=height(root->right);
+        return max(l,r)+1;
+    }
+    void f(TreeNode* root, int level, vector<int> &curr)
+    {
+        if(root==NULL) return;
+        if(level==1) curr.push_back(root->val);
+        if(level>1)
+        {f(root->left,level-1,curr);
+        f(root->right,level-1,curr);
+    }}
+    vector<vector<int>> levelOrderBottom(TreeNode* root) {
+        int i,h=height(root);
+        vector< vector<int>> ans;
+        for(i=h;i>=1;i--)
+        {
+            vector<int> curr;
+            f(root,i,curr);
+            ans.push_back(curr);
+        }
+        return ans;
+    }
+};
