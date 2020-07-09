@@ -18,8 +18,6 @@ void trap(vector<int> height) {
             maxSoFar=max(suffix[i],maxSoFar);
         }
         maxSoFar=0;
-        for(i=0;i<n;i++)
-        	cout<<suffix[i]<<" ";
         cout<<endl;
          for(i=0;i<n-1;i++)
         {
@@ -27,10 +25,9 @@ void trap(vector<int> height) {
             maxSoFar=max(maxSoFar,height[i]);
             if(h>=height[i])
             {  h=h-height[i];
-            	cout<<h<<" ";
             ans=ans+h;}
-            else cout<<0<<" ";
         }
+        cout<<ans<<endl;
         
 
 }
