@@ -18,7 +18,6 @@ void trap(vector<int> height) {
             maxSoFar=max(suffix[i],maxSoFar);
         }
         maxSoFar=0;
-        cout<<endl;
          for(i=0;i<n-1;i++)
         {
            h=min(maxSoFar,suffix[i+1]);
