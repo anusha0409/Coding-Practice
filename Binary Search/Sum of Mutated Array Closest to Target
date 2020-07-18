@@ -1,0 +1,32 @@
+class Solution {
+public:
+    int absDiff(vector <int> & arr,int value,int target)
+    {
+        int i,n=arr.size(),sum=0;
+        for(i=0;i<n;i++)
+        {
+            if(arr[i]>value)
+                sum+=value;
+            else
+                sum+=arr[i];
+        }
+        return abs(target-sum);
+    }
+    int findBestValue(vector<int>& arr, int target) {
+        //range of value wil be 1 to max(arr)
+        int n=arr.size();
+        if(n==0)
+            return 0;
+        sort(arr.begin(),arr.end());
+        int low=0,high=arr[n-1],mid; 
+        while(low<high)
+        {
+            mid=low+(high-low+1)/2;
+           if(absDiff(arr,mid,target)>=absDiff(arr,mid-1,target))
+               high=mid-1;  //first F
+            else
+                low=mid;
+        }
+        return low;
+    }
+};
