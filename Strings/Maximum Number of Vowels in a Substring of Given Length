@@ -1,0 +1,17 @@
+ int maxVowels(string s, int k) {
+        int start=0,end,len=s.length(),maxvowels=0,conss=0,vowels=0;
+        for(end=0;end<len;end++)
+        {
+            char ch=s[end];
+            if(ch=='a'|| ch=='e' || ch=='i' || ch=='o' || ch=='u')
+              vowels++;
+            if(end - start +1 > k)
+            {  char ch1=s[start];
+                if(ch1=='a'|| ch1=='e' || ch1=='i' || ch1=='o' || ch1=='u')
+                   --vowels;
+                   start++;
+            }
+            maxvowels=max(maxvowels, vowels);
+        }
+        return maxvowels;
+    }
