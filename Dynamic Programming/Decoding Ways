@@ -1,0 +1,33 @@
+A message containing letters from A-Z is being encoded to numbers using the following mapping:
+
+'A' -> 1
+'B' -> 2
+...
+'Z' -> 26
+Given a non-empty string containing only digits, determine the total number of ways to decode it.
+
+class Solution {
+public:
+    int numDecodings(string s) {
+         int n=s.length();
+        if(n==0) return 0;
+        //Empty suffix array
+        vector <int> dp(n+1,0);
+        dp[n]=1; // number of ways you can decode empty string
+        
+        dp[n-1]= s[n-1]=='0'  ? 0  :1;
+        
+        for(int i=n-2;i>=0;i--)
+        {
+            if(s[i]=='0')
+            {
+                dp[i]=0;
+                continue;
+            }
+            dp[i]+=dp[i+1];
+            if(s[i]=='1' ||(s[i]=='2' && s[i+1]<='6'))
+                dp[i]+=dp[i+2];
+        }
+        return dp[0];   
+    }
+};
