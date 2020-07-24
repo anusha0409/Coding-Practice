@@ -1,0 +1,32 @@
+class Solution {
+public:
+    int longestValidParentheses(string s) {
+        int n=s.length();
+        if(n<2) return 0;
+        int i,ans=0;
+        vector <int> dp(n,0);
+        dp[0]=0;
+        for(int i=1;i<n;i++)
+        {
+            if(s[i]=='(')
+                dp[i]=0;
+            else
+            {
+               int prev= dp[i-1]; 
+                int pos=i- prev -1;
+                if(pos>=0 && s[pos]==')') dp[i]=0;
+                else if(pos>=0)
+                {
+                    dp[i]=2+dp[i-1];
+                    
+                    //Extend the chain
+                    if(pos-1>=0)
+                        dp[i]=dp[i]+dp[pos-1];
+                }
+                
+            }
+            ans=max(ans,dp[i]);
+        }
+        return ans;
+    }
+};
