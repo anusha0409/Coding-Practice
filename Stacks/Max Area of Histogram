@@ -1,0 +1,54 @@
+int Solution::largestRectangleArea(vector<int> &heights) {
+    stack <pair<int ,int > > s;   // element , index
+        vector <int> NSR;
+        int n=heights.size();
+        if(n==0) return 0;
+        for(int i=n-1;i>=0;i--)
+        {
+            if(s.empty())
+                NSR.push_back(n);
+            else
+            {
+                if(s.top().first < heights[i])
+                    NSR.push_back(s.top().second);
+                else
+                {
+                    while(!s.empty() && s.top().first >= heights[i])
+                        s.pop();
+                    if(s.empty())  NSR.push_back(n);
+                    else      NSR.push_back(s.top().second);
+                }
+            }
+            s.push({heights[i] , i});
+        }
+        reverse(NSR.begin(),NSR.end());
+        while(!s.empty())
+            s.pop();
+        vector <int> NSL;
+        for(int i=0 ;i <n;i++)
+        {
+            if(s.empty())
+                NSL.push_back(-1);
+            else
+            {
+                if(s.top().first < heights[i])
+                    NSL.push_back(s.top().second);
+                else
+                {
+                    while(!s.empty() && s.top().first >= heights[i])
+                        s.pop();
+                    if(s.empty())  NSL.push_back(-1);
+                    else      NSL.push_back(s.top().second);
+                }
+            }
+            s.push({heights[i] , i});
+        }
+        long long int ans=0;
+        for(int i=0;i< n;i++)
+        {
+           long long int h=NSR[i]-NSL[i]-1;
+            h*=heights[i];
+            ans=max(ans,h);
+        }
+          return ans;  
+}
